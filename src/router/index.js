@@ -2,28 +2,50 @@ import {
   createRouter,
   createWebHashHistory
 } from 'vue-router'
+import LayoutA from '@/layout/layoutA/index'
 
-const Home = () => import('../views/Home/index.vue')
-const BaseHomeLayout = () => import('../views/Home/baseLayout.vue')
-const User = () => import('../views/user/index.vue')
+import TestRouter from '@/views/Test/router'
+import Test22Router from '@/views/Test22/router'
 
-const routes = [{
-  name: 'home',
-  path: '/home',
-  component: Home
-}, {
-  name: 'BaseHomeLayout',
-  path: '/BaseHomeLayout',
-  component: BaseHomeLayout,
-  redirect: '/BaseHomeLayout/user',
-  children: [{
-    name: 'user',
-    path: 'user',
-    component: User
-  }]
-}]
+const dynamicRoutes = [
+  {
+    path: '/',
+    component: LayoutA,
+    meta: { title: '首页' },
+    children: [
+      TestRouter,
+      Test22Router
+    ]
+  }
+]
+
+const constantRoutes = [
+  {
+    path: '/login',
+    component: () => import('@/views/Login/index.vue'),
+    hidden: true
+  },
+  {
+    path: '/error',
+    component: () => import('@/views/Error/index.vue')
+  }
+]
+
+const routes = [
+  ...dynamicRoutes,
+  ...constantRoutes
+]
+
+function scrollBehavior (to, from, savedPosition) {
+  if (savedPosition) {
+    return savedPosition
+  } else {
+    return { top: 100 }
+  }
+}
 
 export default createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
+  scrollBehavior
 })
