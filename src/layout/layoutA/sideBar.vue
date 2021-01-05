@@ -14,50 +14,25 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+import { computed, defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
+
 import { useStore } from 'vuex'
 import SideBarItem from './sideBarItem'
-export default {
+export default defineComponent({
   components: { SideBarItem },
   setup () {
     const store = useStore()
     const isCollapse = computed(
       () => store.state.app.sidebarCollapse
     )
-    const routes = ref([
-      {
-        name: 'Test',
-        path: '/Test',
-        meta: { title: '测试' },
-        children: [
-          { name: 'Test1', path: 'Test1', meta: { title: '测试1' } },
-          { name: 'Test2', path: 'Test2', meta: { title: '测试2' } },
-          {
-            name: 'Test3',
-            path: 'Test3',
-            meta: { title: '测试3' },
-            children: [
-              { name: 'Test4', path: 'Test4', meta: { title: '测试4' } }
-            ]
-          }
-        ]
-      },
-      {
-        name: 'Test22',
-        path: '/Test22',
-        meta: { title: '测试22' },
-        children: [
-          { name: 'Test221', path: 'Test221', meta: { title: '测试221' } },
-          { name: 'baidu', path: 'http://www.baidu.com', meta: { } }
-        ]
-      }
-    ])
+    const routes = useRouter().options.routes
     return {
       routes,
       isCollapse
     }
   }
-}
+})
 </script>
 
 <style scoped>

@@ -9,8 +9,9 @@
 
 <script>
 import { isExternal } from '../../util'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   name: 'siderBarLink',
   props: {
     to: {
@@ -20,12 +21,11 @@ export default {
   },
   setup () {
     const isExt = path => {
-      console.log('apth', path)
       return isExternal(path)
     }
     return { isExt }
   }
-}
+})
 </script>
 
 <style scoped>

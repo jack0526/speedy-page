@@ -17,17 +17,19 @@
 <script>
 import sideBar from './sideBar'
 import navBar from './navBar'
-import { computed } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
-export default {
-  components: { sideBar, navBar },
-  setup () {
-    const store = useStore()
-    return {
-      sideBarWidth: computed(() => store.state.app.sidebarCollapse ? '60px' : '210px')
+export default defineComponent(
+  {
+    components: { sideBar, navBar },
+    setup () {
+      const store = useStore()
+      return {
+        sideBarWidth: computed(() => store.state.app.sidebarCollapse ? '60px' : '210px')
+      }
     }
   }
-}
+)
 </script>
 
 <style scoped lang="scss">

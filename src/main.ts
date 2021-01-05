@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import store from './store'
-import ElementUIPLUS from 'element-plus'
+import installElementPlus from '@/util/elementPlus'
 import 'element-plus/lib/theme-chalk/index.css'
 
 import './index.css'
@@ -10,10 +10,10 @@ import App from './App.vue'
 
 const app = createApp(App)
 
-app.config.productionTip = false
-
+app.config.globalProperties.productionTooltip = false
+app.config.globalProperties.$ELEMENT = { size: 'small', zIndex: 3000 }
+installElementPlus(app)
 app
-  .use(ElementUIPLUS, { size: 'small', zIndex: 3000 })
   .use(store)
   .use(router)
 

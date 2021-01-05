@@ -1,3 +1,3 @@
-export function isExternal (path) {
+export function isExternal (path: any) {
   return /^(https?:|mailto:|tel:)/.test(path)
 }

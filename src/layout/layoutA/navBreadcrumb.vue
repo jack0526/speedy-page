@@ -14,12 +14,13 @@
 
 <script>
 import { useRoute } from 'vue-router'
-import { watch } from 'vue'
-export default {
+import { watch, defineComponent, ref } from 'vue'
+export default defineComponent({
   name: 'navBreadcrumb',
   setup () {
+    // 此处route是reactive
     const route = useRoute()
-    const breadList = route.matched
+    const breadList = ref(route.matched)
     const resolveTo = (bread) => {
       if (bread.redirect) {
         return bread.redirect
@@ -32,7 +33,8 @@ export default {
     }
 
     function getBreadcrumb () {
-
+      // ref要使用.value来处理
+      breadList.value = route.matched
     }
 
     watch(
@@ -45,7 +47,7 @@ export default {
       resolveName
     }
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

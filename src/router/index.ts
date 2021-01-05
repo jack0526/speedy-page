@@ -2,7 +2,7 @@ import {
   createRouter,
   createWebHashHistory
 } from 'vue-router'
-import LayoutA from '@/layout/layoutA/index'
+import LayoutA from '@/layout/layoutA/index.vue'
 
 import TestRouter from '@/views/Test/router'
 import Test22Router from '@/views/Test22/router'
@@ -23,11 +23,14 @@ const constantRoutes = [
   {
     path: '/login',
     component: () => import('@/views/Login/index.vue'),
-    hidden: true
+    hidden: true,
+    meta: { title: '登录' }
   },
   {
     path: '/error',
-    component: () => import('@/views/Error/index.vue')
+    component: () => import('@/views/Error/index.vue'),
+    hidden: true,
+    meta: { title: '错误页面' }
   }
 ]
 
@@ -36,7 +39,7 @@ const routes = [
   ...constantRoutes
 ]
 
-function scrollBehavior (to, from, savedPosition) {
+function scrollBehavior (to: any, from: any, savedPosition: any) {
   if (savedPosition) {
     return savedPosition
   } else {

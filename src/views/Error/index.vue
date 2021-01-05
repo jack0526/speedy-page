@@ -20,14 +20,15 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: 'Page404',
   setup () {
     const message = 'The webmaster said that you can not enter this page...'
     return { message }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

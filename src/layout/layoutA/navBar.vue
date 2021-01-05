@@ -9,31 +9,33 @@
 
 <script>
 import { useStore } from 'vuex'
-import { computed } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import navBreadcrumb from './navBreadcrumb'
-export default {
-  name: 'navBar',
-  components: { navBreadcrumb },
-  setup () {
-    const store = useStore()
-    const toggleSideBar = () => {
-      store.dispatch('app/toggleSidebar')
-    }
-    const iconClass = computed(() => store.state.app.sidebarCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold')
+export default defineComponent(
+  {
+    name: 'navBar',
+    components: { navBreadcrumb },
+    setup () {
+      const store = useStore()
+      const toggleSideBar = () => {
+        store.dispatch('app/toggleSidebar')
+      }
+      const iconClass = computed(() => store.state.app.sidebarCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold')
 
-    return {
-      iconClass,
-      toggleSideBar
+      return {
+        iconClass,
+        toggleSideBar
+      }
     }
   }
-}
+)
 </script>
 
 <style scoped lang="scss">
 .nav-bar-container {
   width: 100%;
   height: 100%;
-  background:orange;
+  background: #afa89b;
   position: relative;
   box-sizing: border-box;
 }

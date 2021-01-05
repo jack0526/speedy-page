@@ -1,16 +1,21 @@
 // import Cookies from 'js-cookie'
+import { MutationTree, ActionTree, Module } from 'vuex'
 
-const state = {
+interface State {
+  sidebarCollapse: boolean
+}
+
+const state: State = {
   sidebarCollapse: false
 }
 
-const mutations = {
+const mutations:MutationTree<State> = {
   setSidebarCollapse (state) {
     state.sidebarCollapse = !state.sidebarCollapse
   }
 }
 
-const actions = {
+const actions: ActionTree<State, any> = {
   toggleSidebar ({ commit }) {
     commit('setSidebarCollapse')
   }
@@ -21,4 +26,4 @@ export default {
   state,
   mutations,
   actions
-}
+} as Module<State, any>

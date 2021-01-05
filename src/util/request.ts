@@ -23,7 +23,7 @@ service.interceptors.response.use(
     } else if (res.code === 401) {
       // 认证失败,重置token
     } else {
-      return Promise.reject(new Error(res.message | 'Error'))
+      return Promise.reject(new Error(res.message || 'Error'))
     }
   },
   error => {
