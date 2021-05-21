@@ -3,8 +3,8 @@ const state = () => ({})
 const mutations = {}
 
 const actions = {
-  login ({ commit }, userInfo) {
-    const { username, password } = userInfo
+  login () {
+    console.log('login------')
   }
 }
 

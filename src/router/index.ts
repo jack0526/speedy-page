@@ -16,6 +16,33 @@ const dynamicRoutes = [
       TestRouter,
       Test22Router
     ]
+  },
+  {
+    path: '/ceshi/button',
+    component: () => import('@/views/componentsTest/button.vue'),
+    meta: { title: '测试button' }
+  },
+  {
+    path: '/flvtest',
+    component: () => import('@/views/FlvTest/index.vue'),
+    meta: { title: 'flvtest' }
+  },
+  {
+    path: '/form',
+    component: () => import('@/views/Form/index.vue'),
+    meta: { title: 'Form' }
+  },
+  {
+    path: '/render',
+    component: () => import('@/views/render/index.vue'),
+    meta: { title: 'render' }
+  },
+  {
+    path: '/ddmo',
+    component: () => import('@/views/ddmo/index.vue'),
+    meta: {
+      title: 'ddmo'
+    }
   }
 ]
 
