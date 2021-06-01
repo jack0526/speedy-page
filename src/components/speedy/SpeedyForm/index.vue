@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, h, reactive, ref, toRefs } from 'vue'
+import { defineComponent, h, reactive, ref, toRefs, onBeforeUnmount } from 'vue'
 import { config } from '@/views/render/config'
 import { FormType, formInterface, FormItems, EnumFormItemType } from './type'
 import { resolveForm, getComponents, resolveFormItems, renderSpecifyItem } from './util'
@@ -50,6 +50,11 @@ export default defineComponent({
       // 4. 设置formLayout
       setFormLayout(options)
     }
+
+    onBeforeUnmount(() => {
+      formMitter && formMitter.off && formMitter.off('*', () => {})
+    })
+
     return {
       formRef,
       form,
@@ -129,17 +134,27 @@ export default defineComponent({
       if (formLayout && formLayout.length) {
         return renderFormLayout(formLayout)
       } else {
-        return formItems.map(item => {
-          if (item.type === EnumFormItemType.Custom) {
-            return $slots.default?.()
-          } else {
+        return h(
+          ElRow,
+          {},
+          () => formItems.map(item => {
             return h(
-              ElFormItem,
-              { label: item.label, prop: item.prop },
-              renderSpecifyItem(item, form, formMitter)
+              ElCol,
+              { span: item.span || 24 },
+              () => {
+                if (item.type === EnumFormItemType.Custom) {
+                  return $slots.default?.()
+                } else {
+                  return h(
+                    ElFormItem,
+                    { label: item.label, prop: item.prop },
+                    renderSpecifyItem(item, form, formMitter)
+                  )
+                }
+              }
             )
           }
-        }
+          )
         )
       }
     }

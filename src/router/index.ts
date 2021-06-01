@@ -43,6 +43,11 @@ const dynamicRoutes = [
     meta: {
       title: 'ddmo'
     }
+  },
+  {
+    path: '/ddtable',
+    component: () => import('@/views/ddtable/index.vue'),
+    meta: { title: 'table' }
   }
 ]
 

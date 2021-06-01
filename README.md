@@ -1,24 +1,4 @@
-# my-nanager-client
-
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### todoList
+[] 1. 完成form表单的配置，完成每个选项的自定义配置
+[] 2. 完成table页的配置
+[] 3. 完成page页面的配置

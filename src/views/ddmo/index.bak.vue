@@ -1,15 +1,10 @@
 <template>
-  <div>
-    <el-button type="primary" @click="dialogVisible = true">打开</el-button>
-  </div>
   <el-dialog
     :title="title"
     v-model="dialogVisible"
     :width="dialogWidth"
-    :destroy-on-close="destroyOnClose"
-    @opened="openDialog"
     >
-    <speedy-form ref="formRef" style="width: 100%;">
+    <speedy-form ref="formRef">
       <speedy-form-item prop="customProp">
         <el-form-item label="家住那里">
           <el-input v-model="adress"></el-input>
@@ -19,7 +14,7 @@
     <template #footer>
     <span class="dialog-footer">
       <el-button @click="dialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="doSubmit">确 定</el-button>
+      <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
     </span>
     </template>
   </el-dialog>
@@ -41,10 +36,8 @@ export default {
     // ---------------------------
     const title = ref('创建表单')
     const dialogVisible = ref(false)
-    const dialogWidth = ref('60%')
-    const destroyOnClose = ref(true)
-    // ----------------------------
-    const openDialog = () => {
+    const dialogWidth = ref('30%')
+    onMounted(() => {
       const dom = formRef.value
       // elform的配置项
       dom.setOptions(config)
@@ -81,37 +74,13 @@ export default {
       dom.formMitter.on('pingfen:change', (val) => {
         console.log('pingfen:change', val)
       })
-    }
-    onMounted(() => {
     })
-
-    const done = (err) => {
-      if (err instanceof Error) {
-        console.log('err', err)
-      } else {
-        dialogVisible.value = false
-      }
-    }
-
-    const doSubmit = () => {
-      // 1. 获取form
-      const dom = formRef.value
-      callback(dom.form, done)
-    }
-    const callback = (form1, done) => {
-      console.log('form1', form1)
-      done(new Error('错了'))
-    }
-
     return {
       formRef,
       adress,
       title,
       dialogVisible,
-      dialogWidth,
-      destroyOnClose,
-      openDialog,
-      doSubmit
+      dialogWidth
     }
   }
 }
