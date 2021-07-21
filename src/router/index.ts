@@ -48,6 +48,11 @@ const dynamicRoutes = [
     path: '/ddtable',
     component: () => import('@/views/ddtable/index.vue'),
     meta: { title: 'table' }
+  },
+  {
+    path: '/ddpage',
+    component: () => import('@/views/ddpage/index.vue'),
+    meta: { title: 'page' }
   }
 ]
 

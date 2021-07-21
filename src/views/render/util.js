@@ -1,5 +1,6 @@
 import { resolveComponent } from 'vue';
 import { EnumFormItemType } from './type';
+import { renderText, renderSelect, renderRadioGroup, renderCheckboxGroup, renderInputNumber, renderCascader, renderSwitch, renderSlider, renderTime, renderTimerange, renderDate, renderDaterange, renderDatetime, renderDatetimerange, renderRate } from './renders/index';
 export function resolveForm(items) {
     return items.reduce((result, item) => {
         return { ...result, [item.prop]: item.defaultValue };
@@ -58,5 +59,25 @@ export const resolveFormItems = (items, slotArray) => {
         }
         return result;
     }, []);
+};
+export const TypeToRender = {
+    [EnumFormItemType.Text]: renderText,
+    [EnumFormItemType.Select]: renderSelect,
+    [EnumFormItemType.RadioGroup]: renderRadioGroup,
+    [EnumFormItemType.CheckboxGroup]: renderCheckboxGroup,
+    [EnumFormItemType.Number]: renderInputNumber,
+    [EnumFormItemType.Cascader]: renderCascader,
+    [EnumFormItemType.Switch]: renderSwitch,
+    [EnumFormItemType.Slider]: renderSlider,
+    [EnumFormItemType.Time]: renderTime,
+    [EnumFormItemType.Timerange]: renderTimerange,
+    [EnumFormItemType.Date]: renderDate,
+    [EnumFormItemType.Daterange]: renderDaterange,
+    [EnumFormItemType.Datetime]: renderDatetime,
+    [EnumFormItemType.Datetimerange]: renderDatetimerange,
+    [EnumFormItemType.Rate]: renderRate
+};
+export const renderSpecifyItem = (item, form, formMitter) => {
+    return TypeToRender[item.type](item, form, formMitter);
 };
 //# sourceMappingURL=util.js.map

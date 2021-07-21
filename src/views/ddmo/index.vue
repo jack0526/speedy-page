@@ -17,10 +17,10 @@
       </speedy-form-item>
     </speedy-form>
     <template #footer>
-    <span class="dialog-footer">
-      <el-button @click="dialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="doSubmit">确 定</el-button>
-    </span>
+      <span class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="doSubmit">确 定</el-button>
+      </span>
     </template>
   </el-dialog>
 </template>
@@ -46,6 +46,7 @@ export default {
     // ----------------------------
     const openDialog = () => {
       const dom = formRef.value
+      console.log('ffform', formRef)
       // elform的配置项
       dom.setOptions(config)
       dom.formMitter.on('sex:change', val => {

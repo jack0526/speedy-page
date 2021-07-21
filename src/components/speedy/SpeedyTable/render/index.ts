@@ -1,45 +1,60 @@
 import { h, resolveComponent, reactive, ref } from 'vue'
-const tableColumns = ref([] as Array<any>)
+import { TableConfig } from '../type'
+import { createFormatter } from '../utils2'
 
-const initTableColumns = (columns: Array<any>) => {
-  tableColumns.value = columns
-}
-
-export const setOptions = (config: any) => {
-  const { items = [] } = config
-  initTableColumns(items)
-}
-
-export const renderTableColumns = (items: Array<any>) => {
-  return () => items.map(item => {
+export const renderTableColumns = (items: Array<any>, store: any) => () => {
+  const renderIndex = h(resolveComponent('ElTableColumn'), { type: 'index', width: 50 })
+  const normal = items.map(item => {
+    const formatter = createFormatter(item, store)
     return h(
       resolveComponent('ElTableColumn'),
       {
         label: item.label,
         prop: item.prop,
-        width: item.width || 'auto'
+        width: item.width || 'auto',
+        align: item.align || 'center',
+        formatter
       }
     )
   })
+  return [renderIndex, ...normal]
 }
 
-export function renderTable (tableData: Array<any>, tableColumns: Array<any>) {
+export function renderTable (
+  tableData: Array<any>,
+  tableColumns: Array<any>,
+  config: TableConfig,
+  events: any,
+  store: any
+) {
+  const headerCellClassName = 'speedy-table-cell'
   return h(
     resolveComponent('ElTable'),
     {
-      data: tableData
+      data: tableData,
+      border: config.border,
+      stripe: config.stripe,
+      size: config.size,
+      fit: config.fit,
+      showHeader: config.showHeader,
+      height: '95%',
+      headerCellClassName,
+      highlightCurrentRow: config.highlightCurrentRow,
+      defaultExpandAll: config.defaultExpandAll,
+      tooltipEffect: config.tooltipEffect,
+      onRowClick: (...val: any) => events.emit('rowClick', val)
     },
-    renderTableColumns(tableColumns)
+    renderTableColumns(tableColumns, store)
   )
 }
 
-export const renderPagination = (config: any) => {
+export const renderPagination = (config: any, events: any) => {
   const {
     background = true,
     layout = 'total, sizes, prev, pager, next, jumper',
     total = 0,
     currentPage = 1,
-    pageSizes = [100, 200, 300, 400],
+    pageSizes = [15],
     pageSize = 15,
     hideOnSinglePage = false
   } = config
@@ -54,17 +69,25 @@ export const renderPagination = (config: any) => {
       pageSizes,
       pageSize,
       hideOnSinglePage,
-      onSizeChange: (val: any) => { console.log('sizechange--', val) },
-      onCurrentChange: (val: any) => { console.log('currentchange', val) }
+      onSizeChange: (val: any) => events.emit('sizeChange', val),
+      onCurrentChange: (val: any) => events.emit('currentChange', val)
     }
   )
 }
 
-export const renderTableAndPagination = (tableData: Array<any>, tableColumns: Array<any>, config: any) => {
-  if (config.pagination) {
+export const renderTableAndPagination = (
+  tableData: Array<any>,
+  tableColumns: Array<any>,
+  config: TableConfig,
+  events: any,
+  store: any
+) => {
+  if (config.isPaging) {
     return [
-      renderTable(tableData, tableColumns),
-      renderPagination(config)
+      renderTable(tableData, tableColumns, config, events, store),
+      renderPagination(config, events)
     ]
+  } else {
+    return renderTable(tableData, tableColumns, config, events, store)
   }
 }

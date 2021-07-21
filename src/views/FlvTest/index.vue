@@ -1,43 +1,38 @@
 <template>
-  <div>
-    <el-button type="primary" @click="addItem">添加属性</el-button>
-    <el-button type="primary" @click="addItem2">添加属性2</el-button>
-  </div>
-  <el-form :model="form">
-    <el-form-item v-for="item in items" :key="item.prop" :prop="item.prop" :label="item.label">
-      <el-input v-model="form[item.prop]" ></el-input>
-    </el-form-item>
-  </el-form>
+  <el-button @click="doClick" type="primary">触发事件</el-button>
+  <el-button @click="offEmit" type="danger">销毁事件</el-button>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, reactive, watch } from 'vue'
-
-export default defineComponent({
-  name: 'FlvTest',
+<script>
+import { ref, onMounted, watch, reactive, isReadonly } from 'vue'
+import mitt from 'mitt'
+export default {
   setup () {
-    const form = reactive({ names: ['1'] } as Record<string, any>)
-    const items = ref([] as Array<any>)
-    const addItem = () => {
-      const prop = 'p' + Date.now()
-      const label = 'name' + Date.now()
-      form[prop] = ''
-      items.value.push({ label, prop })
+    const mitt1 = mitt()
+    const hander1 = () => {
+      console.log('hello1')
     }
-    const addItem2 = () => {
-      form.names.push('2')
+    const hander2 = () => {
+      console.log('hello2')
     }
-    watch(form, (val) => {
-      console.log('form', form)
+    mitt1.on('*', (type, e) => {
+      console.log('type', type, e)
     })
+    console.log('mit.all', mitt1.all)
+    const doClick = () => {
+      console.log('all--', mitt1.all.get('hello'))
+      mitt1.emit('hello', 'myargs')
+    }
+    const offEmit = () => {
+      mitt1.all.clear()
+    }
     return {
-      form,
-      addItem,
-      addItem2,
-      items
+      doClick,
+      offEmit
     }
   }
-})
+}
+
 </script>
 
 <style scoped>

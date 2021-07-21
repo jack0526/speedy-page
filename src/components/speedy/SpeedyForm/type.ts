@@ -11,6 +11,7 @@ export interface formInterface {
   formItems: FormItems
 }
 
+// 用作渲染items
 export enum EnumFormItemType {
   Text = 'text',
   Select = 'select',

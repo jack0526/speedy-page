@@ -26,6 +26,7 @@ export var EnumElementForm;
     EnumElementForm["ElOption"] = "ElOption";
     EnumElementForm["ElRadioGroup"] = "ElRadioGroup";
     EnumElementForm["ElRadio"] = "ElRadio";
+    EnumElementForm["ElRadioButton"] = "ElRadioButton";
     EnumElementForm["ElCheckbox"] = "ElCheckbox";
     EnumElementForm["ElCheckboxGroup"] = "ElCheckboxGroup";
     EnumElementForm["ElInputNumber"] = "ElInputNumber";
