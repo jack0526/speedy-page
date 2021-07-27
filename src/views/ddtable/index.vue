@@ -1,5 +1,5 @@
 <template>
-  <speedy-table ref="tableRef" ></speedy-table>
+  <speedy-table ref="tableRef"></speedy-table>
 </template>
 
 <script>
@@ -12,7 +12,7 @@ export default {
   components: { SpeedyTable },
   setup () {
     const tableRef = ref(null)
-    onMounted(() => {
+    onMounted(async () => {
       const { speedyTable } = tableRef.value
       speedyTable.setOptions(config)
       speedyTable.setStore('isMarried', [
@@ -23,7 +23,7 @@ export default {
         { label: '男', value: 0 },
         { label: '女', value: 1 }
       ])
-      const rows = getList()
+      const rows = await getList()
       speedyTable.setRows(rows)
       speedyTable.setTotal(rows.length)
       speedyTable.setEvents({
@@ -35,6 +35,12 @@ export default {
           speedyTable.setRows(rows.slice((val - 1) * pageSize, val * pageSize))
         }
       })
+      setTimeout(() => {
+        speedyTable.setStore('sex', [
+          { label: '男男', value: 0 },
+          { label: '女女', value: 1 }
+        ])
+      }, 6000)
     })
 
     return {

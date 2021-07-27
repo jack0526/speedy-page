@@ -1,5 +1,5 @@
 import { resolveComponent } from 'vue'
-import { EnumFormItemType } from './type'
+import { EnumFormItemType } from '../types/formTypes'
 import {
   renderText,
   renderSelect,
@@ -16,7 +16,7 @@ import {
   renderDatetime,
   renderDatetimerange,
   renderRate
-} from './renders/index'
+} from '../SpeedyForm/renders'
 
 export function resolveForm (items: Array<any>) {
   return items.reduce((result, item: any) => {
@@ -97,6 +97,6 @@ export const TypeToRender = {
   [EnumFormItemType.Rate]: renderRate
 } as Record<string, any>
 
-export const renderSpecifyItem = (item: any, form: any, formMitter:any) => {
-  return TypeToRender[item.type](item, form, formMitter)
+export const renderSpecifyItem = (item: any, form: any, eventStore:any, store: any) => {
+  return TypeToRender[item.type](item, form, eventStore, store)
 }

@@ -1,11 +1,11 @@
-type Size = 'medium' | 'small' | 'mini'
+import { Size } from './commonTypes'
 interface TableItemBase {
   label: string;
   prop: string;
   type: string;
 }
 
-type TableItem = TableItemBase
+type TableItem = TableItemBase | string
 
 export interface TableConfig extends Record<string, any>{
   // 是否为斑马纹 table
@@ -20,6 +20,8 @@ export interface TableConfig extends Record<string, any>{
   defaultExpandAll?:boolean;
   tooltipEffect?: 'dark' | 'light';
   isPaging?: boolean;
+  columnSelection?: boolean;
+  columnExpand?: boolean;
 }
 
 export interface TableOptions {

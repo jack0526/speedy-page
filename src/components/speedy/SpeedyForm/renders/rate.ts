@@ -1,7 +1,7 @@
 import { h, resolveComponent } from 'vue'
-import { EnumElementForm } from '../type'
+import { EnumElementForm } from '../../types/formTypes'
 
-export const renderRate = (item: any, form: any, formEmiter: any) => {
+export const renderRate = (item: any, form: any, eventStore: any) => {
   const changeEventName = `${item.prop}:change`
   const {
     max = 5,
@@ -40,7 +40,7 @@ export const renderRate = (item: any, form: any, formEmiter: any) => {
       texts,
       modelValue: form[item.prop],
       'onUpdate:modelValue': (val: any) => (form[item.prop] = val),
-      onChange: (val: any) => formEmiter.emit(changeEventName, val)
+      onChange: (val: any) => eventStore.get(changeEventName) && eventStore.get(changeEventName)(val)
     }
   )
 }

@@ -1,6 +1,6 @@
 import { h, resolveComponent } from 'vue';
-import { EnumElementForm } from '../type';
-export const renderInputNumber = (item, form, formMitter) => {
+import { EnumElementForm } from '../../types/formTypes';
+export const renderInputNumber = (item, form, eventStore) => {
     const changeEventName = `${item.prop}:change`;
     const blurEventName = `${item.prop}:blur`;
     const { step = 1, stepStrictly = false, precision = undefined, size = 'small', disabled = false, controls = true, controlsPosition = 'right', name = '', label = '', placeholder = `请输入${item.label}` } = item;
@@ -19,8 +19,8 @@ export const renderInputNumber = (item, form, formMitter) => {
         'onUpdate:modelValue': (val) => (form[item.prop] = val),
         min: item.min,
         max: item.max,
-        onChange: (val) => formMitter.emit(changeEventName, val),
-        onBlur: (event) => formMitter.emit(blurEventName, event)
+        onChange: (val) => eventStore.get(changeEventName) && eventStore.get(changeEventName)(val),
+        onBlur: (event) => eventStore.get(blurEventName) && eventStore.get(blurEventName)(event)
     });
 };
 //# sourceMappingURL=inputNumber.js.map

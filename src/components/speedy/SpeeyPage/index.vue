@@ -1,23 +1,22 @@
-<template>
-  <div style="height: 100%;">
-    <speedy-table ref="tableRef"></speedy-table>
-  </div>
-</template>
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
-import SpeedyTableUtil from './SpeedyPageUtil'
+import { defineComponent, onBeforeUnmount } from 'vue'
+import SpeedyPage from './SpeedyPage'
 import SpeedyTable from '../SpeedyTable/index.vue'
 import SpeedyForm from '../SpeedyForm/index.vue'
 export default defineComponent({
   name: 'SpeedyPage',
   components: { SpeedyTable, SpeedyForm },
   setup () {
-    const tableRef = ref(null)
-    const page = new SpeedyTableUtil()
+    const speedyPage = new SpeedyPage()
+    onBeforeUnmount(() => {
+      speedyPage.clearEvents()
+    })
     return {
-      page,
-      tableRef
+      speedyPage
     }
+  },
+  render () {
+    return this.speedyPage.render()
   }
 })
 </script>

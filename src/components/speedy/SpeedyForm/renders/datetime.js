@@ -1,6 +1,6 @@
 import { h, resolveComponent } from 'vue';
-import { EnumElementForm } from '../type';
-export const renderDatetime = (item, form, formEmiter) => {
+import { EnumElementForm } from '../../types/formTypes';
+export const renderDatetime = (item, form, eventStore) => {
     const changeEventName = `${item.prop}:change`;
     const { disabled = false } = item;
     const shortcuts = [{
@@ -27,7 +27,7 @@ export const renderDatetime = (item, form, formEmiter) => {
         modelValue: form[item.prop],
         'onUpdate:modelValue': (val) => (form[item.prop] = val),
         type: 'datetime',
-        onChange: (val) => formEmiter.emit(changeEventName, val)
+        onChange: (val) => eventStore.get(changeEventName) && eventStore.get(changeEventName)(val)
     });
 };
 //# sourceMappingURL=datetime.js.map

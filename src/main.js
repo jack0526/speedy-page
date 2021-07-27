@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import store from './store';
+import './components/speedy/styles/index.scss';
 // import installElementPlus from '@/util/elementPlus'
 import ElementPlus from 'element-plus';
 import 'dayjs/locale/zh-cn';

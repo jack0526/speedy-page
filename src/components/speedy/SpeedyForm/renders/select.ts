@@ -1,7 +1,8 @@
 import { h, resolveComponent } from 'vue'
-import { EnumElementForm } from '../type'
+import { EnumElementForm } from '../../types/formTypes'
+import { getStore } from '../../utils/common-utils'
 
-export const renderSelect = (item: any, form: any, formMitter: any) => () => {
+export const renderSelect = (item: any, form: any, eventStore: any, store: any) => () => {
   const {
     disabled = false,
     placeholder = `请输入${item.label}`,
@@ -15,6 +16,7 @@ export const renderSelect = (item: any, form: any, formMitter: any) => () => {
     clearIcon = 'el-icon-circle-close'
   } = item
   const changeEventName = `${item.prop}:change`
+  const options = getStore(item, store)
   return h(
     resolveComponent(EnumElementForm.ElSelect),
     {
@@ -30,9 +32,9 @@ export const renderSelect = (item: any, form: any, formMitter: any) => () => {
       clearIcon,
       modelValue: form[item.prop],
       'onUpdate:modelValue': (val: any) => (form[item.prop] = val),
-      onChange: (val: any) => formMitter.emit(changeEventName, val)
+      onChange: (val: any) => eventStore.get(changeEventName) && eventStore.get(changeEventName)(val)
     },
-    () => item.options.map((option: any) => {
+    () => options.map((option: any) => {
       return h(
         resolveComponent(EnumElementForm.ElOption),
         {

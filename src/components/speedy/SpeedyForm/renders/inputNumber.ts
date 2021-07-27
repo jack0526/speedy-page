@@ -1,7 +1,7 @@
 import { h, resolveComponent } from 'vue'
-import { EnumElementForm } from '../type'
+import { EnumElementForm } from '../../types/formTypes'
 
-export const renderInputNumber = (item: any, form: any, formMitter: any) => {
+export const renderInputNumber = (item: any, form: any, eventStore: any) => {
   const changeEventName = `${item.prop}:change`
   const blurEventName = `${item.prop}:blur`
   const {
@@ -33,8 +33,8 @@ export const renderInputNumber = (item: any, form: any, formMitter: any) => {
       'onUpdate:modelValue': (val: any) => (form[item.prop] = val),
       min: item.min,
       max: item.max,
-      onChange: (val: any) => formMitter.emit(changeEventName, val),
-      onBlur: (event:Event) => formMitter.emit(blurEventName, event)
+      onChange: (val: any) => eventStore.get(changeEventName) && eventStore.get(changeEventName)(val),
+      onBlur: (event:Event) => eventStore.get(blurEventName) && eventStore.get(blurEventName)(event)
     }
   )
 }

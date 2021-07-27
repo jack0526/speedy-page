@@ -1,5 +1,5 @@
 import { h, resolveComponent } from 'vue';
-import { EnumElementForm } from '../type';
+import { EnumElementForm } from '../../types/formTypes';
 export const renderRadio = (options) => {
     return () => options.map((option) => {
         return h(resolveComponent(EnumElementForm.ElRadio), {

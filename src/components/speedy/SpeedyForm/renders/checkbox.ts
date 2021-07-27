@@ -1,14 +1,14 @@
 import { h, resolveComponent } from 'vue'
-import { EnumElementForm } from '../type'
+import { EnumElementForm } from '../../types/formTypes'
 
 export const renderCheckbox = (options: Array<any>) => {
   return () => options.map(option => {
     return h(
       resolveComponent(EnumElementForm.ElCheckbox),
       {
-        label: option.label
+        label: option.value
       },
-      () => option.value
+      () => option.label
     )
   })
 }

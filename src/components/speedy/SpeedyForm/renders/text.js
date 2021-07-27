@@ -1,6 +1,6 @@
 import { h, resolveComponent } from 'vue';
-import { EnumElementForm } from '../type';
-export const renderText = (item, form, formMitter) => () => {
+import { EnumElementForm } from '../../types/formTypes';
+export const renderText = (item, form, eventStore) => () => {
     const { disabled = false, clearable = true, placeholder = `请输入${item.label}`, showPassword = false, suffixIcon = '', prefixIcon = '', size = 'small' } = item;
     const changeEventName = `${item.prop}:change`;
     return h(resolveComponent(EnumElementForm.ElInput), {
@@ -15,7 +15,7 @@ export const renderText = (item, form, formMitter) => () => {
         'onUpdate:modelValue': (val) => {
             form[item.prop] = val;
         },
-        onChange: (val) => formMitter.emit(changeEventName, val)
+        onChange: (val) => eventStore.get(changeEventName) && eventStore.get(changeEventName)(val)
     });
 };
 //# sourceMappingURL=text.js.map

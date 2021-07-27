@@ -1,6 +1,6 @@
 import { h, resolveComponent } from 'vue';
-import { EnumElementForm } from '../type';
-export const renderDaterange = (item, form, formEmiter) => {
+import { EnumElementForm } from '../../types/formTypes';
+export const renderDaterange = (item, form, eventStore) => {
     const changeEventName = `${item.prop}:change`;
     const { rangeSeparator = '至', startPlaceholder = '开始日期', endPlaceholder = '结束日期' } = item;
     const shortcuts = [{
@@ -36,7 +36,7 @@ export const renderDaterange = (item, form, formEmiter) => {
         modelValue: form[item.prop],
         'onUpdate:modelValue': (val) => (form[item.prop] = val),
         type: 'daterange',
-        onChange: (val) => formEmiter.emit(changeEventName, val)
+        onChange: (val) => eventStore.get(changeEventName) && eventStore.get(changeEventName)(val)
     });
 };
 //# sourceMappingURL=daterange.js.map

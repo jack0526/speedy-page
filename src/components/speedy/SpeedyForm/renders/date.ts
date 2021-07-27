@@ -1,7 +1,7 @@
 import { h, resolveComponent } from 'vue'
-import { EnumElementForm } from '../type'
+import { EnumElementForm } from '../../types/formTypes'
 
-export const renderDate = (item: any, form: any, formEmiter: any) => {
+export const renderDate = (item: any, form: any, eventStore: any) => {
   const changeEventName = `${item.prop}:change`
   const shortcuts = [
     { text: '今天', value: new Date() },
@@ -38,7 +38,7 @@ export const renderDate = (item: any, form: any, formEmiter: any) => {
       rangeSeparator,
       modelValue: form[item.prop],
       'onUpdate:modelValue': (val: any) => (form[item.prop] = val),
-      onChange: (val: any) => formEmiter.emit(changeEventName, val)
+      onChange: (val: any) => eventStore.get(changeEventName) && eventStore.get(changeEventName)(val)
     }
   )
 }

@@ -1,6 +1,6 @@
 import { h, resolveComponent } from 'vue';
-import { EnumElementForm } from '../type';
-export const renderTime = (item, form, formEmiter) => {
+import { EnumElementForm } from '../../types/formTypes';
+export const renderTime = (item, form, eventStore) => {
     const changeEventName = `${item.prop}:change`;
     const { disabled = false, editable = true, clearable = true, size = 'small', format = 'HH:mm:ss' } = item;
     return () => h(resolveComponent(EnumElementForm.ElTimePicker), {
@@ -11,7 +11,7 @@ export const renderTime = (item, form, formEmiter) => {
         format,
         modelValue: form[item.prop],
         'onUpdate:modelValue': (val) => (form[item.prop] = val),
-        onChange: (val) => formEmiter.emit(changeEventName, val)
+        onChange: (val) => eventStore.get(changeEventName) && eventStore.get(changeEventName)(val)
     });
 };
 //# sourceMappingURL=time.js.map

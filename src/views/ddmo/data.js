@@ -1,7 +1,9 @@
-export const treeData = [{
+export const treeData = [
+    {
         value: 'zhinan',
         label: '指南',
-        children: [{
+        children: [
+            {
                 value: 'shejiyuanze',
                 label: '设计原则',
                 children: [{
@@ -17,7 +19,8 @@ export const treeData = [{
                         value: 'kekong',
                         label: '可控'
                     }]
-            }, {
+            },
+            {
                 value: 'daohang',
                 label: '导航',
                 children: [{
@@ -27,8 +30,10 @@ export const treeData = [{
                         value: 'dingbudaohang',
                         label: '顶部导航'
                     }]
-            }]
-    }, {
+            }
+        ]
+    },
+    {
         value: 'zujian',
         label: '组件',
         children: [{
@@ -179,7 +184,8 @@ export const treeData = [{
                         label: 'Collapse 折叠面板'
                     }]
             }]
-    }, {
+    },
+    {
         value: 'ziyuan',
         label: '资源',
         children: [{
@@ -192,5 +198,6 @@ export const treeData = [{
                 value: 'jiaohu',
                 label: '组件交互文档'
             }]
-    }];
+    }
+];
 //# sourceMappingURL=data.js.map

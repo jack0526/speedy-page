@@ -1,7 +1,7 @@
 import { h, resolveComponent } from 'vue'
-import { EnumElementForm } from '../type'
+import { EnumElementForm } from '../../types/formTypes'
 
-export const renderText = (item: any, form: any, formMitter: any) => () => {
+export const renderText = (item: any, form: any, eventStore: any) => () => {
   const {
     disabled = false,
     clearable = true,
@@ -26,7 +26,7 @@ export const renderText = (item: any, form: any, formMitter: any) => () => {
       'onUpdate:modelValue': (val: any) => {
         form[item.prop] = val
       },
-      onChange: (val: any) => formMitter.emit(changeEventName, val)
+      onChange: (val: any) => eventStore.get(changeEventName) && eventStore.get(changeEventName)(val)
     }
   )
 }

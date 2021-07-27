@@ -1,7 +1,7 @@
 import { h, resolveComponent } from 'vue'
-import { EnumElementForm } from '../type'
+import { EnumElementForm } from '../../types/formTypes'
 
-export const renderSlider = (item: any, form: any, formEmitter: any) => {
+export const renderSlider = (item: any, form: any, eventStore: any) => {
   const {
     min = 0,
     max = 100,
@@ -44,7 +44,7 @@ export const renderSlider = (item: any, form: any, formEmitter: any) => {
       marks,
       modelValue: form[item.prop],
       'onUpdate:modelValue': (val: any) => (form[item.prop] = val),
-      onChange: (val: any) => formEmitter.emit(changeEventName, val)
+      onChange: (val: any) => eventStore.get(changeEventName) && eventStore.get(changeEventName)(val)
     }
   )
 }

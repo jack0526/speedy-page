@@ -29,7 +29,7 @@
 import SpeedyForm from '@/components/speedy/SpeedyForm/index'
 import SpeedyFormItem from '@/components/speedy/SpeedyForm/SpeedyFormItem'
 import { ref, onMounted } from 'vue'
-import { config } from './config'
+import { config, formItems } from './config'
 
 export default {
   name: 'index',
@@ -45,41 +45,51 @@ export default {
     const destroyOnClose = ref(true)
     // ----------------------------
     const openDialog = () => {
-      const dom = formRef.value
-      console.log('ffform', formRef)
+      const { speedyForm } = formRef.value
       // elform的配置项
-      dom.setOptions(config)
-      dom.formMitter.on('sex:change', val => {
+      speedyForm.setOptions({ config, items: formItems })
+      speedyForm.setStore({
+        sex: [{ label: '男', value: 1 }, { label: '女', value: 0 }],
+        address: [
+          { label: '南京', value: '1' },
+          { label: '北京', value: '2' },
+          { label: '上海', value: '3' },
+          { label: '广州', value: '4' },
+          { label: '遂宁', value: '5' },
+          { label: '曹县', value: '5' }
+        ]
+      })
+      speedyForm.on('sex:change', val => {
         console.log('val---', val)
       })
-      dom.formMitter.on('sex2:change', val => {
+      speedyForm.on('sex2:change', val => {
         console.log('sex2change', val)
       })
-      dom.formMitter.on('didian:change', val => {
+      speedyForm.on('didian:change', val => {
         console.log('didianchange', val)
       })
-      dom.formMitter.on('age:change', val => {
+      speedyForm.on('age:change', val => {
         console.log('age,change', val)
       })
-      dom.formMitter.on('age:blur', e => {
+      speedyForm.on('age:blur', e => {
         console.log('age, blur', e)
       })
-      dom.formMitter.on('huakuai:change', val => {
+      speedyForm.on('huakuai:change', val => {
         console.log('huakuai,change', val)
       })
-      dom.formMitter.on('time:change', (val) => {
+      speedyForm.on('time:change', (val) => {
         console.log('time, change', val)
       })
-      dom.formMitter.on('timerange:change', (val) => {
+      speedyForm.on('timerange:change', (val) => {
         console.log('timerange:change', val)
       })
-      dom.formMitter.on('date2:change', (val) => {
+      speedyForm.on('date2:change', (val) => {
         console.log('daterange:change', val)
       })
-      dom.formMitter.on('datetimerange:change', (val) => {
+      speedyForm.on('datetimerange:change', (val) => {
         console.log('datetimerange:change', val)
       })
-      dom.formMitter.on('pingfen:change', (val) => {
+      speedyForm.on('pingfen:change', (val) => {
         console.log('pingfen:change', val)
       })
     }

@@ -1,14 +1,16 @@
 export type FormType = Record<string, any>
 
 export type FormItems = Array<any>
-
-export interface formInterface {
-  labelWidth?: string;
+export interface FormConfig extends Record<string, any> {
+  labelWidth?: string | number;
   labelPosition?: string;
   rules?: FormType,
   disabled?: boolean,
-  size?: string,
-  formItems: FormItems
+  size?: string
+}
+export interface formInterface extends Record<string, any>{
+  config?: FormConfig,
+  items?: FormItems
 }
 
 // 用作渲染items

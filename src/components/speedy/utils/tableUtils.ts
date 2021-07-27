@@ -1,4 +1,3 @@
-// item: { options: { label: '', value: '', name: '' } }
 import dayjs from 'dayjs'
 
 type OptionsType = string | { name: string, label?:string, value?:string }
