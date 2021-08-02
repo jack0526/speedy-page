@@ -39,7 +39,6 @@ export default {
           form.sex2 = 1
         },
         'button:edit:click': (form) => {
-
         }
       })
       const result = await getPageList()
